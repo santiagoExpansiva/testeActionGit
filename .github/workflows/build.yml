@@ -34,9 +34,9 @@ jobs:
         git add .
         git commit -m "Compile TypeScript files"
       env:
-        GITHUB_TOKEN: ${{ secrets.SECRET_NAME }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push changes
       run: git push
       env:
-        GITHUB_TOKEN: ${{ secrets.SECRET_NAME }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
