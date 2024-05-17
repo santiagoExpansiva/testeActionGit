@@ -58,7 +58,7 @@ class _200001_tCard extends _200001_Special_Base {
 
 	public render(): HTMLElement {
 
-		super.createEL('t-card');
+		super.createEL('t-card-2');
 		this.renderAllFields(this.el, this);
 		return this.el;
 
