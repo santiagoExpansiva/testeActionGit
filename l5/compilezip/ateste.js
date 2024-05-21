@@ -65,7 +65,7 @@ class SimpleGreeting extends (_a = LitElement, _name_dec = [property()], _a) {
 _init = __decoratorStart(_a);
 __decorateElement(_init, 5, "name", _name_dec, SimpleGreeting);
 SimpleGreeting = __decorateElement(_init, 0, "SimpleGreeting", _SimpleGreeting_decorators, SimpleGreeting);
-SimpleGreeting.styles = css`p { color: red }`;
+SimpleGreeting.styles = css`p { color: blue }`;
 __runInitializers(_init, 1, SimpleGreeting);
 export {
   SimpleGreeting
