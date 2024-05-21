@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 const srcDir = path.join(__dirname, 'l5/compilezip');
+const destDir = path.join(__dirname, 'prel2');
 
 async function deleteAllFilesInDirectory(directoryPath) {
   try {
@@ -40,7 +41,7 @@ async function exec() {
     target: 'es2015',
     sourcemap: false,
     format: 'esm'
-  }).catch(() => process.exit(1));
+  }).then(async () =>{ await deleteAllFilesInDirectory(destDir)}).catch(() => process.exit(1));
 
 }
 
