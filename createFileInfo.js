@@ -9,7 +9,7 @@ async function getAllFiles(dirPath, arrayOfFiles = []) {
   for (const file of files) {
     const filePath = path.join(dirPath, file);
     const stat = await fs.promises.stat(filePath);
-
+    console.log(`file before: ${filePath} `);
     if (stat.isDirectory() && !['node_modules','prel2','.git','.github'].includes(file)) {
     
       await getAllFiles(filePath, arrayOfFiles);
