@@ -9,11 +9,11 @@ async function getAllFiles(dirPath, arrayOfFiles = []) {
   for (const file of files) {
     const filePath = path.join(dirPath, file);
     const stat = await fs.promises.stat(filePath);
-    console.log(`file before: ${filePath} `);
+    
     if (stat.isDirectory() && !['node_modules','prel2','.git','.github'].includes(file)) {
     
       await getAllFiles(filePath, arrayOfFiles);
-    } else if (stat.isFile() && filePath.indexOf("\\l")>= 0 ) {
+    } else if (stat.isFile() && (filePath.indexOf("\\l")>= 0  || filePath.indexOf("/l")>= 0 )) {
         console.log(`file: ${filePath} `);
       arrayOfFiles.push(filePath);
     }
