@@ -32,7 +32,10 @@ jobs:
 
     - name: Pos Compile TypeScript
       run: npm run posbuild
-      
+
+    - name: Create file Info
+      run: npm run createfileinfo
+
     - name: Commit compiled files
       run: |
         git config --global user.name 'github-actions[bot]'
@@ -43,23 +46,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push changes
-      run: git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Create file Info
-      run: npm run createfileinfo
-
-    - name: Commit File Info
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add . ':!node_modules'
-        git commit -m "Commit FileInfo"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Push FileInfo
       run: git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
