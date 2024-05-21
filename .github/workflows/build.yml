@@ -24,8 +24,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Pre Compile TypeScript
+      run: npm run prebuild
+
     - name: Compile TypeScript
-      run: npm run build
+      run: npm run buildcmd
+
+    - name: Pos Compile TypeScript
+      run: npm run posbuild
+
+    - name: Create file Info
+      run: npm run createfileinfo
 
     - name: Commit compiled files
       run: |

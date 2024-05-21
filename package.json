@@ -5,11 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "prebuild": "node preCompile.js",
+    "buildcmd": "node build.js",
+    "posbuild": "node rename.js",
+    "createfileinfo": "node createFileInfo.js"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.21.3",
+    "esbuild-plugin-import-map": "^2.1.0",
     "typescript": "^5.4.5"
   }
 }
