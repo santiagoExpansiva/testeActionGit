@@ -24,23 +24,20 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Pre Compile TypeScript
-      run: npm run prebuild
-
     - name: Compile TypeScript
       run: npm run buildcmd
 
-    - name: Pos Compile TypeScript
-      run: npm run posbuild
-
     - name: Create file Info
       run: npm run createfileinfo
+
+    - name: Compact Files
+      run: npm run compactfiles
 
     - name: Commit compiled files
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add . ':!node_modules'
+        git add dist
         git commit -m "Compile TypeScript files"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -10,7 +10,7 @@ async function getAllFiles(dirPath, arrayOfFiles = []) {
     const filePath = path.join(dirPath, file);
     const stat = await fs.promises.stat(filePath);
     
-    if (stat.isDirectory() && !['node_modules','prel2','.git','.github'].includes(file)) {
+    if (stat.isDirectory() && !['node_modules','prel2','.git','.github','build'].includes(file)) {
     
       await getAllFiles(filePath, arrayOfFiles);
     } else if (stat.isFile() && (filePath.indexOf("\\l")>= 0  || filePath.indexOf("/l")>= 0 )) {
@@ -37,7 +37,7 @@ function getFileVersion(filePath) {
 
 // Função principal
 (async () => {
-  const projectRoot = path.join(__dirname); // Ajuste conforme necessário
+  const projectRoot = path.join(__dirname, '..'); // Ajuste conforme necessário
 
   try {
     const allFiles = await getAllFiles(projectRoot);
@@ -54,7 +54,7 @@ function getFileVersion(filePath) {
     }));
 
     // Escrever as informações no arquivo fileinfos.json
-    const outputPath = path.join(projectRoot, 'fileinfos.json');
+    const outputPath = path.join(projectRoot, 'dist/fileinfos.json');
     await fs.promises.writeFile(outputPath, JSON.stringify(fileInfos, null, 2));
 
     console.log(`File information has been written to ${outputPath}`);

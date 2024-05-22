@@ -5,17 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "node preCompile.js",
-    "buildcmd": "node build.js",
-    "posbuild": "node rename.js",
-    "createfileinfo": "node createFileInfo.js"
+    "buildcmd": "node ./build/build.js",
+    "createfileinfo": "node ./build/createFileInfo.js",
+    "compactfiles": "node ./build/compact.js"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
     "esbuild": "^0.21.3",
     "esbuild-plugin-import-map": "^2.1.0",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.12"
   }
 }
