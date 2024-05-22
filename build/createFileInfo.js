@@ -35,16 +35,47 @@ function getFileVersion(filePath) {
   });
 }
 
+function getFileOID(commit, filePath) {
+  return new Promise((resolve, reject) => {
+    const command = `git ls-tree --full-name -r ${commit} ${filePath}`;
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(`Error executing command: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        reject(`Command error: ${stderr}`);
+        return;
+      }
+      const lines = stdout.trim().split('\n');
+      if (lines.length === 0) {
+        reject(`File not found in commit`);
+        return;
+      }
+      const parts = lines[0].split(/\s+/);
+      if (parts.length < 3) {
+        reject(`Unexpected output format`);
+        return;
+      }
+      resolve(parts[2]); // OID está na terceira coluna
+    });
+  });
+}
+
 // Função principal
 (async () => {
   const projectRoot = path.join(__dirname, '..'); // Ajuste conforme necessário
 
   try {
     const allFiles = await getAllFiles(projectRoot);
+    let versionCompile = ""
     const fileInfos = await Promise.all(allFiles.map(async file => {
       const relativePath = path.relative(projectRoot, file);
-      const versionRef = await getFileVersion(relativePath);
       const stat = await fs.promises.stat(file);
+      let versionRef = "";
+
+      if(versionCompile === "" ) versionCompile = await getFileVersion(relativePath);
+      if(versionCompile !== "" ) versionRef = await getFileOID(versionCompile, relativePath)
 
       return {
         ShortPath: relativePath,
