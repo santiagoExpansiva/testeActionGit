@@ -75,7 +75,11 @@ async function deleteAllFilesInDirectory(directoryPath) {
   }
 }
 
-const projectRoot = path.resolve(__dirname, '..');
-const sourceDir = path.join(projectRoot, 'dist');
-await deleteAllFilesInDirectory(sourceDir);
-build();
+async function exec() {
+  const projectRoot = path.resolve(__dirname, '..');
+  const sourceDir = path.join(projectRoot, 'dist');
+  await deleteAllFilesInDirectory(sourceDir);
+  build();
+}
+
+exec();
