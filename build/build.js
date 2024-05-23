@@ -1,5 +1,7 @@
 const esbuild = require('esbuild');
+const path = require('path');
 const fs = require('fs').promises;
+const fs2 = require('fs');
 const ts = require('typescript');
 
 // Função de configuração esbuild
@@ -45,40 +47,32 @@ async function build() {
   }
 }
 
-async function deleteAllFilesInDirectory(directoryPath) {
-  try {
-    const files = await fs.promises.readdir(directoryPath);
+async function deleteZipFileSync(filePath) {
 
-    for (const file of files) {
-      const filePath = path.join(directoryPath, file);
-      const stat = await fs.promises.stat(filePath);
-
-      if (stat.isFile()) {
-        await fs.promises.unlink(filePath);
-        console.log(`Deleted file: ${filePath}`);
-      } else if (stat.isDirectory()) {
-        // Recursively delete files in subdirectories (optional)
-        await deleteAllFilesInDirectory(filePath);
-        await fs.rmdir(filePath, (err) => {
-          if (err) {
-            console.error(`Error removing directory: ${err}`);
-          } else {
-            console.log(`Directory removed: ${filePath}`);
-          }
-        });
+  fs2.access(filePath, fs2.constants.F_OK, (err) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        console.log(`File ${filePath} does not exist.`);
+      } else {
+        console.error(`Error checking file: ${err}`);
       }
+      return;
     }
 
-    console.log(`All files in directory ${directoryPath} have been deleted.`);
-  } catch (err) {
-    console.error(`Error deleting files in directory ${directoryPath}:`, err);
-  }
+    fs2.unlink(filePath, (err) => {
+      if (err) {
+        console.error(`Error deleting file: ${err}`);
+      } else {
+        console.log(`File ${filePath} deleted successfully.`);
+      }
+    });
+  });
 }
 
 async function exec() {
   const projectRoot = path.resolve(__dirname, '..');
-  const sourceDir = path.join(projectRoot, 'dist');
-  await deleteAllFilesInDirectory(sourceDir);
+  const sourceDir = path.join(projectRoot, 'dist/dist.zip');
+  await deleteZipFileSync(sourceDir);
   build();
 }
 
