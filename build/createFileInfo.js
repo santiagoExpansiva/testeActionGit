@@ -10,7 +10,7 @@ async function getAllFiles(dirPath, arrayOfFiles = []) {
     const filePath = path.join(dirPath, file);
     const stat = await fs.promises.stat(filePath);
     
-    if (stat.isDirectory() && !['node_modules','prel2','.git','.github','build'].includes(file)) {
+    if (stat.isDirectory() && !['node_modules','prel2','preBuild','.git','.github','build','dist'].includes(file)) {
     
       await getAllFiles(filePath, arrayOfFiles);
     } else if (stat.isFile() && (filePath.indexOf("\\l")>= 0  || filePath.indexOf("/l")>= 0 )) {
@@ -92,7 +92,7 @@ function getFileOID(commit, filePath) {
     }
 
     // Escrever as informações no arquivo fileinfos.json
-    const outputPath = path.join(projectRoot, 'dist/fileinfos.json');
+    const outputPath = path.join(projectRoot, 'preBuild/fileinfos.json');
     await fs.promises.writeFile(outputPath, JSON.stringify(js, null, 2));
 
     console.log(`File information has been written to ${outputPath}`);

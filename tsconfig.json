@@ -6,7 +6,7 @@
     "esModuleInterop": true, // Habilita a interoperabilidade com módulos ES
     "forceConsistentCasingInFileNames": true, // Impede diferenças de maiúsculas/minúsculas nos nomes dos arquivos
     "skipLibCheck": true, // Ignora a verificação de tipo de arquivos de declaração
-    "outDir": "./dist/l2", // Define o diretório de saída para os arquivos compilados
+    "outDir": "./preBuild/l2", // Define o diretório de saída para os arquivos compilados
     "rootDir": "./l2", // Define o diretório raiz dos arquivos de entrada
     "sourceMap": true // Gera arquivos de mapeamento de origem (.map)
   },

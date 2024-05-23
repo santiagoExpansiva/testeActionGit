@@ -3,10 +3,10 @@ const path = require('path');
 const fs = require('fs');
 
 const projectRoot = path.resolve(__dirname, '..');
-const sourceDir = path.join(projectRoot, 'dist');
+const sourceDir = path.join(projectRoot, 'preBuild');
 const outputZip = path.join(projectRoot, 'dist.zip');
 
-async function deleteAllFilesInDirectory(directoryPath) {
+/*async function deleteAllFilesInDirectory(directoryPath) {
     try {
         const files = await fs.promises.readdir(directoryPath);
 
@@ -34,7 +34,7 @@ async function deleteAllFilesInDirectory(directoryPath) {
     } catch (err) {
         console.error(`Error deleting files in directory ${directoryPath}:`, err);
     }
-}
+}*/
 
 
 async function zipDirectory(source, out) {
@@ -56,7 +56,7 @@ async function zipDirectory(source, out) {
     addDirectory(source, '');
     zip.writeZip(out);
     console.log(`Zipping completed successfully: ${out}`);
-    await deleteAllFilesInDirectory(source);
+    //await deleteAllFilesInDirectory(source);
     const destinationFilePath = path.join(projectRoot, 'dist/dist.zip');
     fs.rename(out, destinationFilePath, (err) => {
         if (err) {
