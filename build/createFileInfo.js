@@ -76,7 +76,7 @@ function getFileOID(commit, filePath) {
 
       if(versionCompile === "" ) versionCompile = await getFileVersion(relativePath);
       if(versionCompile !== "" ) versionRef = await getFileOID(versionCompile, relativePath)
-
+      
       return {
         ShortPath: relativePath,
         versionRef,
@@ -84,9 +84,16 @@ function getFileOID(commit, filePath) {
       };
     }));
 
+    const lastModify = new Date();
+
+    const js = {
+      lastModify:lastModify.toISOString(),
+      files: fileInfos
+    }
+
     // Escrever as informações no arquivo fileinfos.json
     const outputPath = path.join(projectRoot, 'dist/fileinfos.json');
-    await fs.promises.writeFile(outputPath, JSON.stringify(fileInfos, null, 2));
+    await fs.promises.writeFile(outputPath, JSON.stringify(js, null, 2));
 
     console.log(`File information has been written to ${outputPath}`);
   } catch (error) {
