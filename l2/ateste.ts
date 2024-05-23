@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 // teste 4
 @customElement('ateste-100554')
 export class SimpleGreeting extends LitElement {
-    static styles = css`p { color: blue }`;
+    static styles = css`p { color: red }`;
 
     @property()
     name: string = new Date(Date.now()).toString();
