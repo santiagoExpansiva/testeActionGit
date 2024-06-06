@@ -75,5 +75,3 @@ async function exec() {
   //await deleteZipFileSync(sourceDir);
   build();
 }
-
-exec();
