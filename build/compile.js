@@ -72,7 +72,7 @@ async function compile() {
 async function funcTeste() {
   //const projectRoot = path.resolve(__dirname, '..');
   //const sourceDir = path.join(projectRoot, 'dist/dist.zip');
-  //await deleteZipFileSync(sourceDir);
+  //await deleteZipFileSync(sourceDir);;
   compile();
 }
 
