@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "buildcmd": "node ./build/build.js",
+    "buildcmd": "node ./build/compile.js",
     "createfileinfo": "node ./build/createFileInfo.js",
     "compactfiles": "node ./build/compact.js"
   },
