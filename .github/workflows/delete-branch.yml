@@ -18,7 +18,7 @@ jobs:
         run: |
           git clone https://github.com/${{ github.repository }} repo
           cd repo
-          git checkout main # Certifique-se de estar no branch principal
+          git checkout master # Certifique-se de estar no branch principal
 
       - name: Delete branch
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
