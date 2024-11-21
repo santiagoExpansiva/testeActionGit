@@ -13,18 +13,12 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      
-      - name: Clone the repository
-        run: |
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-          git checkout master # Certifique-se de estar no branch principal
 
       - name: Delete branch
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd repo
           echo "Branch to delete: ${{ github.event.pull_request.head.ref }}"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push origin --delete "${{ github.event.pull_request.head.ref }}"
