@@ -9,13 +9,19 @@ jobs:
   delete_branch:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
       - name: Set up Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Delete branch
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        if: |
+          ${{ github.event.pull_request.head.repo.full_name == github.repository }} &&
+          ${{ github.event.pull_request.head.ref != 'main' }} &&
+          ${{ github.event.pull_request.head.ref != 'master' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
